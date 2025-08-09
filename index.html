@@ -93,7 +93,7 @@ function generateTicket() {
     const canvas = document.getElementById('previewCanvas');
     const ctx = canvas.getContext('2d');
     const img = new Image();
-    img.src = 'empty.png';
+    img.src = './empty.png';
     img.onload = function() {
         canvas.width = img.width;
         canvas.height = img.height;
@@ -122,7 +122,7 @@ function issueTicket() {
     const canvas = document.getElementById('fullCanvas');
     const ctx = canvas.getContext('2d');
     const img = new Image();
-    img.src = 'empty.png';
+    img.src = './empty.png';
     img.onload = function() {
         // 세로 회전 크기 설정
         canvas.width = img.height;
