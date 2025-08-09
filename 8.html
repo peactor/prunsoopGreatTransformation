@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demeter boarding pass</title>
+
+<!-- 얇은 글씨 폰트 -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+
+<style>
+    body { font-family: Arial, sans-serif; margin: 0; background-color: #fff; text-align: center; }
+    header { display: flex; align-items: center; padding: 10px; background-color: white; border-bottom: 1px solid #ddd; }
+    header img { width: 30px; height: 30px; border-radius: 50%; margin-right: 10px; }
+    .title { font-weight: bold; font-size: 14px; }
+    .banner { position: relative; }
+    .banner img { width: 100%; height: auto; }
+    .banner-text { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); color: white; font-size: 20px; font-weight: bold; text-shadow: 1px 1px 5px rgba(0,0,0,0.7); }
+    .content { display: flex; align-items: center; padding: 15px; }
+    .content img { width: 60px; height: 60px; border-radius: 50%; margin-right: 15px; }
+    .content p { font-size: 14px; line-height: 1.4; margin: 0; }
+    .textbox { margin: 15px; border: 1px solid #ccc; padding: 20px; font-size: 16px; text-align: left; border-radius: 8px; }
+    .top-section { background: url('login.jpg') no-repeat center center; background-size: cover; padding: 20px; color: white; }
+    .text-section { background: url('text.jpg') no-repeat center center; background-size: cover; padding: 220px; color: white; }
+    .top-section h2 { margin-bottom: 15px; text-shadow: 1px 1px 5px rgba(0,0,0,0.7); }
+    input { display: block; width: 200px; padding: 10px; margin: 10px auto; border-radius: 5px; border: 1px solid #ccc; font-size: 16px; }
+    button { padding: 10px 20px; margin-top: 15px; background-color: #1e90ff; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; }
+    canvas { max-width: 100%; height: auto; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div id="mainContent">
+    <!-- 상단 기본 화면 -->
+    <header>
+        <img src="logo.jpg" alt="logo">
+        <div class="title">Demeter boarding pass</div>
+    </header>
+
+    <div class="banner">
+        <img src="backGround.jpg" alt="rocket">
+        <div class="banner-text">Voyage of demeter</div>
+    </div>
+
+    <div class="content">
+        <img src="logo.jpg" alt="푸른숲">
+        <p>푸른숲 출판사는 미지의 구조물을 탐험할 데메테르호 미션을 추진 중입니다.</p>
+    </div>
+
+    <div class="textbox">데메테르호는 상황에 따라 범선, 증기선, 비행선, 우주선으로 여러 번 변모하여 시공간을 넘나듭니다. 지금, 함께 탑승하여 19세기, 20세기, 근 미래, 먼 미래의 우주를 자유롭게 유영할 용감한 원정대를 모집합니다.
+<br><br>
+<div class="text-section">
+</div>
+<br>
+계약 조건이 극도로 의심스러우며, 항해 도중 극심한 멀미와 악몽에 시달릴 수 있고, 간혹 현실과 허구가 구분되지 않으며, 결국 미스터리한 죽음을 마주하게 되겠지만, 미지의 구조물을 발견하기만 한다면 우리의 이름은 역사에 오래 기억될 것 입니다.<br><br>
+황금빛 미래가 당신을 기다리고 있습니다. 함께 탑승하시겠습니까?
+<br><br>
+※주의: 일단 탑승하면 도중에 내리기 어려우므로 신중한 결단을 요합니다.
+<br>
+</div>
+
+    <!-- 이름 입력 -->
+    <div class="top-section">
+        <h2>당신의 탑승권에 새겨질 이름을 입력하세요</h2>
+        <input type="text" id="firstName" placeholder="이름 (영문)">
+        <input type="text" id="lastName" placeholder="성 (영문)">
+        <button onclick="generateTicket()">완료</button>
+    </div>
+</div>
+
+<!-- 하단 미리보기 -->
+<div id="previewSection" style="display:none;">
+    <canvas id="previewCanvas"></canvas>
+    <br>
+    <button onclick="issueTicket()">발급받기</button>
+</div>
+
+<!-- 전체 티켓 화면 -->
+<div id="fullTicketSection" style="display:none; background:#000; padding:10px;">
+    <canvas id="fullCanvas"></canvas>
+</div>
+
+<script>
+let savedName = "";
+
+// 이름 길이 자동 조절 + 미리보기
+function generateTicket() {
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    if (!firstName || !lastName) { alert("이름과 성을 모두 입력해주세요."); return; }
+
+    savedName = (firstName + " " + lastName).toUpperCase();
+    const canvas = document.getElementById('previewCanvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.src = '대전환_티켓이벤트_최종.png';
+    img.onload = function() {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+
+        ctx.fillStyle = "white";
+        ctx.textAlign = "left";
+
+        let fontSize = 95;
+        ctx.font = `300 ${fontSize}px 'Roboto Condensed', sans-serif`;
+        const maxWidth = 1000; 
+        while (ctx.measureText(savedName).width > maxWidth && fontSize > 10) {
+            fontSize--;
+            ctx.font = `300 ${fontSize}px 'Roboto Condensed', sans-serif`;
+        }
+
+        // DEMETER 바로 아래 (가로 미리보기)
+        ctx.fillText(savedName, 800, 390);
+
+        document.getElementById('previewSection').style.display = 'block';
+    };
+}
+
+// 발급 + 세로 회전 티켓 + 다운로드
+function issueTicket() {
+    const canvas = document.getElementById('fullCanvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.src = 'empty.png';
+    img.onload = function() {
+        // 세로 회전 크기 설정
+        canvas.width = img.height;
+        canvas.height = img.width;
+
+        ctx.save();
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+        ctx.rotate(-Math.PI / 2);
+        ctx.drawImage(img, -img.width / 2, -img.height / 2);
+        ctx.restore();
+
+        ctx.fillStyle = "white";
+        ctx.textAlign = "center";
+
+        let fontSize = 95;
+        ctx.font = `300 ${fontSize}px 'Roboto Condensed', sans-serif`;
+        const maxWidth = 1000;
+        while (ctx.measureText(savedName).width > maxWidth && fontSize > 10) {
+            fontSize--;
+            ctx.font = `300 ${fontSize}px 'Roboto Condensed', sans-serif`;
+        }
+
+        // DEMETER 바로 아래 (세로 발급본)
+        ctx.save();
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillText(savedName, -30, -70);
+        ctx.restore();
+
+        // 메인 화면/미리보기 제거 → 깔끔한 티켓 화면
+        document.getElementById('mainContent').style.display = 'none';
+        document.getElementById('previewSection').style.display = 'none';
+        document.getElementById('fullTicketSection').style.display = 'block';
+
+        // 다운로드 처리
+        const link = document.createElement('a');
+        link.download = 'ticket.jpg';
+        link.href = canvas.toDataURL("image/jpeg");
+
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            window.open(link.href, '_blank'); // 모바일은 새 창
+        } else {
+            // 데스크톱: file:// 차단 방지
+            try {
+                link.click();
+            } catch {
+                window.open(link.href, '_blank');
+            }
+        }
+    };
+}
+</script>
+
+</body>
+</html>
