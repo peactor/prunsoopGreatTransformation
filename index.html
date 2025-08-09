@@ -126,6 +126,12 @@ function generateTicket() {
         ctx.fillText(savedName, 800, 390);
 
         document.getElementById('previewSection').style.display = 'block';
+
+        document.getElementById('previewSection').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+
+        });
     };
 }
 
