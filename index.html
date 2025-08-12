@@ -16,9 +16,11 @@
     .banner { position: relative; }
     .banner img { width: 100%; height: auto; }
     .banner-text { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); color: white; font-size: 20px; font-weight: bold; text-shadow: 1px 1px 5px rgba(0,0,0,0.7); }
-    .content { display: flex; align-items: left; padding: 15px; }
-    .content img { width: 60px; height: 60px; border-radius: 50%; margin-right: 15px; }
-    .content p { font-size: 14px; line-height: 1.4; margin: 0; }
+
+    .content { display: flex; align-items: center; justify-content: flex-start; padding: 15px; }
+    .content img { width: 60px; height: 60px; border-radius: 50%; margin-right: 15px; flex: 0 0 auto; }
+    .content p { font-size: 14px; line-height: 1.4; margin: 0; text-align: left; flex: 1; }
+    
     .textbox { margin: 15px; border: 1px solid #ccc; padding: 20px; font-size: 16px; text-align: left; border-radius: 8px; }
     .top-section { background: url('login.jpg') no-repeat center center; background-size: cover; padding: 20px; color: white; }
 
@@ -65,7 +67,7 @@
 
     <div class="content">
         <img src="logo.jpg" alt="푸른숲">
-        <p>푸른숲 출판사는 미지의 구조물을<br> 탐험 하기 위한 데메테르호 미션을 추진 중입니다.</p>
+        <p class="responsive-title">푸른숲 출판사는 미지의 구조물을 탐험 하기 위한<span class="mobile-break"></span> 데메테르호 미션을 추진 중입니다.</p>
     </div>
 
     <div class="textbox">데메테르호는 상황에 따라 범선, 증기선, 비행선, 우주선으로 여러 번 변모하여 시공간을 넘나듭니다. 지금, 함께 탑승하여 19세기, 20세기, 근미래, 먼 미래의 우주를 자유롭게 유영할 용감한 원정대를 모집합니다.
