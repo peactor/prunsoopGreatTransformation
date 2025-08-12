@@ -37,6 +37,13 @@
     }
 
     .top-section h2 { margin-bottom: 15px; text-shadow: 1px 1px 5px rgba(0,0,0,0.7); }
+
+    .input-lalrge{ width:250px; padding: 10px; font-size: 16px; }
+
+    .mobile-break { display: none; }
+    @media(max-width: 600px){ .mobile-break { display: block; } }
+
+
     input { display: block; width: 200px; padding: 10px; margin: 10px auto; border-radius: 5px; border: 1px solid #ccc; font-size: 16px; }
     button { padding: 10px 20px; margin-top: 15px; background-color: #1e90ff; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; }
     canvas { max-width: 100%; height: auto; margin-top: 20px; }
@@ -58,14 +65,14 @@
 
     <div class="content">
         <img src="logo.jpg" alt="푸른숲">
-        <p>푸른숲 출판사는 미지의 구조물을 탐험할 데메테르호 미션을 추진 중입니다.</p>
+        <p>푸른숲 출판사는 미지의 구조물을 탐험 하기 위한 데메테르호 미션을 추진 중입니다.</p>
     </div>
 
-    <div class="textbox">데메테르호는 상황에 따라 범선, 증기선, 비행선, 우주선으로 여러 번 변모하여 시공간을 넘나듭니다. 지금, 함께 탑승하여 19세기, 20세기, 근 미래, 먼 미래의 우주를 자유롭게 유영할 용감한 원정대를 모집합니다.
+    <div class="textbox">데메테르호는 상황에 따라 범선, 증기선, 비행선, 우주선으로 여러 번 변모하여 시공간을 넘나듭니다. 지금, 함께 탑승하여 19세기, 20세기, 근미래, 먼 미래의 우주를 자유롭게 유영할 용감한 원정대를 모집합니다.
 <br><br>
 <div class="text-section"></div>
 <br>
-계약 조건이 극도로 의심스러우며, 항해 도중 극심한 멀미와 악몽에 시달릴 수 있고, 간혹 현실과 허구가 구분되지 않으며, 결국 미스터리한 죽음을 마주하게 되겠지만, 미지의 구조물을 발견하기만 한다면 우리의 이름은 역사에 오래 기억될 것 입니다.<br><br>
+계약 조건이 극도로 의심스러우며, 항해 도중 극심한 멀미와 악몽에 시달릴 수 있고, 간혹 현실과 허구가 구분되지 않으며, 결국 미스터리한 죽음을 마주하게 되겠지만, 미지의 구조물을 발견하기만 한다면 우리의 이름은 역사에 오래 기록될 것 입니다.<br><br>
 황금빛 미래가 당신을 기다리고 있습니다. 함께 탑승하시겠습니까?
 <br><br>
 ※주의: 일단 탑승하면 도중에 내리기 어려우므로 신중한 결단을 요합니다.
@@ -74,7 +81,7 @@
 
     <!-- 이름 입력 -->
     <div class="top-section">
-        <h2>당신의 탑승권에 새겨질 이름을 입력하세요</h2>
+        <h2 class="responsive-title">당신의 탑승권에<span class="mobile-break"></span> 새겨질 이름을 입력하세요</h2>
         <input type="text" id="firstName" placeholder="이름 (영문)">
         <input type="text" id="lastName" placeholder="성 (영문)">
         <button onclick="generateTicket()">완료</button>
